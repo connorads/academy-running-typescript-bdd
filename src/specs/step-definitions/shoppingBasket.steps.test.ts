@@ -5,7 +5,18 @@ const feature = loadFeature('./src/specs/features/basket.feature')
 
 defineFeature(feature, test => {    
     const mockAddItem = jest.fn();
-    const shoppingBasket = new ShoppingBasket(mockAddItem);
+    const mockGetItems = jest.fn(() => [{
+      units: 2,
+      name: "The Hobbit",
+      unitPrice: 5
+    },
+    {
+      units: 5,
+      name: "Breaking Bad",
+      unitPrice: 7
+    }]);
+    
+    const shoppingBasket = new ShoppingBasket(mockAddItem, mockGetItems);
 
     let basketContents = "";
 

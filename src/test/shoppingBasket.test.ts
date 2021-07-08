@@ -3,7 +3,8 @@ import {ShoppingBasket} from "../shoppingBasket";
 describe("Shopping basket", () => {
     it("Should add item to basket", () => {
         const mockAddItem = jest.fn();
-        const basket = new ShoppingBasket(mockAddItem);
+        const mockGetStuff = jest.fn();
+        const basket = new ShoppingBasket(mockAddItem, mockGetStuff);
 
         basket.add(1, "Rambo");
 
@@ -12,19 +13,18 @@ describe("Shopping basket", () => {
 
     it("should print the contents", () => {
         const mockAddItem = jest.fn();
-        const mockGetStuff = jest.fn().mockReturnValue({
-            creationDate: "22/01/2021",
-            items: [{
-                name: "The Hobbit",
-                price: 10
+        const mockGetItems = jest.fn().mockReturnValue([{
+              units: 2,
+              name: "The Hobbit",
+              unitPrice: 5
             },
-                {
-                    name: "The Hobbit",
-                    price: 10
-                },
-                {}]
-        })
-        const basket = new ShoppingBasket(mockAddItem, mockGetStuff);
+            {
+              units: 5,
+              name: "Breaking Bad",
+              unitPrice: 7
+            }]
+        )
+        const basket = new ShoppingBasket(mockAddItem, mockGetItems);
 
         expect(basket.getContents()).toEqual("Creation date: 22/01/2021\n" +
             "2 x The Hobbit // 2 x 5.00 = £10.00\n" +
